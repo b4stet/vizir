@@ -13,7 +13,7 @@ Then the script `analyze.py` provides some insights:
 - with `--coverage`, it shows the space of the IPv4 and IPv6 allocated
 - with a date formatted as `%Y%m%d`, it shows IP blocks for which an attribute changed at that day (status, country or requestor ID)
 
-The blocks are displayed efficiently as a network tree using the sweep line algorithm.
+The supernets are computed efficiently as a network tree using the sweep line algorithm.
 
 # Example 1
 
@@ -61,47 +61,20 @@ The output indicates that:
 - 0.2% of the IPv6 space is allocated by IANA, and the entirety is in use
 - on April 18th, a bunch of /16 were transfered from US Postal to Amazon, but `allocated` means that not yet in use
 - the ID `20c786e8edd815cc245070645e265298` in stats files is probably tight to Amazon
-- the parent block `56.0.0.0/15` is not owned by Amazon (the requestor is different)
+- the parent block `56.0.0.0/15` is probably not owned by Amazon (the requestor is different)
 - the block `56.20.0.0/14` does not have any parent and is owned entirely by Amazon: it's a direct allocation by a RIR, there is no intermediary/reseller in between
 
 # Example 2
 ```
-$ python analyze.py --date 20250426
+$ python analyze.py --date 20250618
 
-[+] Changes seen on 20250426 (2529 found)
-└── 192.189.1.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': 'cca738c4-a27a-4e19-b732-7682d79c2438'})
-└── 192.189.8.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': '5d046ab7-3e1b-4241-94cd-61b46840aafa'})
-└── 192.189.9.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': '91d35573-7796-4a05-92b4-9bdfb3169ed1'})
-└── 192.189.10.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': 'dd21ba8e-8a19-4187-8aba-7a58efbe32c0'})
-└── 192.189.11.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': '928110ed-3e5a-459d-8b3c-423833e0a3b7'})
-└── 192.189.23.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': '439defa7-a91f-49a1-8247-7000b8e5fb6e'})
-└── 192.189.41.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': '802036cf-0474-41b5-a31b-4a8f2fd2aa32'})
-└── 192.189.51.0/24 ({'cc': 'AT', 'status': 'assigned', 'requestor': '159b3f51-f0ba-4d84-a369-e330296359a4'})
-└── 192.189.52.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': 'ffe78436-059f-4c44-86d0-ac151af76c31'})
-└── 192.189.55.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': '7868a23a-d24e-4977-bb52-b6be47685256'})
-└── 192.189.66.0/24 ({'cc': 'FR', 'status': 'assigned', 'requestor': '095d7670-987c-432c-8753-f6bbf0798b07'})
-└── 192.189.69.0/24 ({'cc': 'GB', 'status': 'assigned', 'requestor': 'c4efff33-0763-4272-b523-b67f29f06470'})
+[+] Changes seen on 20250618 (2641 found)
+└── 160.223.180.0/23 ({'status': 'allocated->assigned', 'requestor': 'cc429e8b49be2ee3e7c00f5fd3e11a41->49a468ab-35f7-461f-a4e6-a97eaaa79dd9', 'cc': 'CA->FR', 'org': 'bombardier inc.->alstom transport sa'})
+└── 160.223.202.0/24 ({'status': 'allocated->assigned', 'requestor': 'cc429e8b49be2ee3e7c00f5fd3e11a41->af91326f-50d4-4e50-b00b-528900f858aa', 'cc': 'CA->FR', 'org': 'bombardier inc.->alstom transport sa'})
 
 [ ... truncated ...]
 
-└── 185.8.116.0/22 ({'type': 'parent info', 'cc': 'DE', 'status': 'allocated', 'requestor': 'd6fa08ae-fb69-4083-9fdd-a6ecbd7545f2'})
-    ├── 185.8.116.0/23 ({'cc': 'DE', 'status': 'allocated', 'requestor': 'd6fa08ae-fb69-4083-9fdd-a6ecbd7545f2'})
-    └── 185.8.118.0/23 ({'cc': 'DE', 'status': 'allocated', 'requestor': '987a82ec-2877-4ba8-aa08-8d9acef01473'})
-[ ... truncated ...]
-
-└── 163.227.160.0/19 ({'type': 'parent info', 'cc': '', 'status': 'available', 'requestor': ''})
-    ├── 163.227.160.0/23 ({'cc': 'VN', 'status': 'assigned', 'requestor': 'A92CDC65'})
-    ├── 163.227.162.0/23 ({'cc': 'VN', 'status': 'assigned', 'requestor': 'A92A6EAD'})
-    ├── 163.227.164.0/22 ({'cc': '', 'status': 'available', 'requestor': ''})
-    ├── 163.227.168.0/21 ({'cc': '', 'status': 'available', 'requestor': ''})
-    └── 163.227.176.0/20 ({'cc': '', 'status': 'available', 'requestor': ''})
 
 ```
 
-The output indicates that:
-- we don't have the information about orgs: the transfers are not consistent with the stats
-- the block `185.8.116.0/22` was split: the requestor `d6fa08ae-fb69-4083-9fdd-a6ecbd7545f2` sold or leased the second `/23`
-- the block `163.227.160.0/19` was entirely available, from which 2 `/23` were `assigned` to 2 different operators
-- a bunch of small ranges got `allocated`: the requestor is the new owner
-- a bunch of small ranges got `assigned` with many distinct requestors: the requestor is the new operator
-- other got `reserved`: a local or regional registry blocked the availability of the IP block
+The output indicates that 2 ranges were transfered from Bombardier to Alstom, probably some "cleaning" after they acquired Bombardier years ago.

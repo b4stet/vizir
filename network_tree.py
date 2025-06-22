@@ -6,15 +6,16 @@ import time
 
 class NetworkNode:
     def __init__(self, network: dict):
-        self.block = network['block']
+        self.block = network['value']
         self.children = []
         self.parent = None
-        self.ip_start = network['ip_start']
-        self.ip_end = network['ip_end']
-        self.ip_start_int = int(ipaddress.ip_address(self.ip_start))
-        self.ip_end_int = int(ipaddress.ip_address(self.ip_end))
-        self.cidr = int(network['cidr'])
-        self.nb_ips = int(network['nb_ips'])
+        net = ipaddress.ip_network(self.block, strict=False)
+        self.ip_start = net[0].compressed
+        self.ip_end = net[-1].compressed
+        self.ip_start_int = int(net[0])
+        self.ip_end_int = int(net[-1])
+        self.cidr = network['cidr']
+        self.nb_ips = net.num_addresses
         self.ip_type = network['ip_type']
         self.desc = 'n/a'
     
@@ -26,10 +27,10 @@ class NetworkNode:
 class NetworksHierarchicalTree:
     def __init__(self, networks: list = []):
         self.roots = []
-        self.nodes = {network['block']: NetworkNode(network) for network in networks}
+        self.nodes = {network['value']: NetworkNode(network) for network in networks}
     
     def set_nodes(self, networks: list):
-        self.nodes = {network['block']: NetworkNode(network) for network in networks}
+        self.nodes = {network['value']: NetworkNode(network) for network in networks}
 
 
     def build(self):

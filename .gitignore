@@ -1,3 +1,5 @@
 __pycache__/
-data/
-db/vizir.sqlite3*
+data/*
+data.tar.gz
+db/*.sqlite3
+.env

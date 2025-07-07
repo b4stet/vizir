@@ -34,47 +34,64 @@ Found 0 ipv6 networks in DB equal to IANA allocation
 IANA allocated 669116692824468607286019819925667840 ipv6, 0.20% of the space
 Found 22 non-overlapping networks ipv6, accounting for 669116692825677533105634449100374016 ipv6, 100.00% of IANA allocation
 
-[+] Changes seen on 20250418 (55 found)
-└── 23.137.236.0/24 ({'cc': 'US', 'status': 'allocated', 'requestor': '5c811aaf62f2a2b277e1480ff6638610'})
-└── 23.137.244.0/24 ({'cc': 'US', 'status': 'allocated', 'requestor': 'fae4e89c02f8f3de14daea814dd4800a'})
-└── 23.138.4.0/24 ({'cc': 'US', 'status': 'allocated', 'requestor': 'f1393dadfccb4850d5990c8340c60cbc'})
-└── 56.0.0.0/15 ({'type': 'parent info', 'cc': 'US', 'status': 'allocated', 'requestor': '7bfe7160b82a7801909804dfa050e3bb'})
-    └── 56.1.0.0/16 ({'cc': 'US', 'status': 'allocated', 'requestor': '20c786e8edd815cc245070645e265298', 'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-└── 56.4.0.0/15 ({'cc': 'US', 'status': 'allocated', 'requestor': '20c786e8edd815cc245070645e265298'})
-    ├── 56.4.0.0/16 ({'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-    └── 56.5.0.0/16 ({'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-└── 56.8.0.0/16 ({'cc': 'US', 'status': 'allocated', 'requestor': '20c786e8edd815cc245070645e265298', 'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-└── 56.12.0.0/16 ({'cc': 'US', 'status': 'allocated', 'requestor': '20c786e8edd815cc245070645e265298', 'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-└── 56.15.0.0/16 ({'cc': 'US', 'status': 'allocated', 'requestor': '20c786e8edd815cc245070645e265298', 'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-└── 56.18.0.0/16 ({'cc': 'US', 'status': 'allocated', 'requestor': '20c786e8edd815cc245070645e265298', 'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-└── 56.20.0.0/14 ({'cc': 'US', 'status': 'allocated', 'requestor': '20c786e8edd815cc245070645e265298'})
-    ├── 56.20.0.0/16 ({'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-    ├── 56.21.0.0/16 ({'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-    ├── 56.22.0.0/16 ({'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
-    └── 56.23.0.0/16 ({'src_org': 'United States Postal Service', 'dst_org': 'Amazon.com, Inc.'})
+[+] Changes seen on 20250420 (55 found)
+└── 4.0.0.0/8 ({'org': 'level 3 communications, inc.->level 3 parent, llc'})
+    ├── 4.128.0.0/12 ({'org': 'level 3 parent, llc->microsoft corporation'})
+    ├── 4.144.0.0/12 ({'org': 'level 3 parent, llc->microsoft corporation'})
+    ├── 4.160.0.0/12 ({'org': 'level 3 parent, llc->microsoft corporation'})
+    ├── 4.176.0.0/12 ({'org': 'level 3 parent, llc->microsoft corporation'})
+    ├── 4.192.0.0/12 ({'org': 'level 3 parent, llc->microsoft corporation'})
+    ├── 4.208.0.0/12 ({'org': 'level 3 parent, llc->microsoft corporation'})
+    ├── 4.224.0.0/12 ({'org': 'level 3 parent, llc->microsoft corporation'})
+    └── 4.240.0.0/12 ({'org': 'level 3 parent, llc->microsoft corporation'})
+
+└── 56.16.0.0/12 (is parent since 20250617)
+    ├── 56.16.0.0/15 (is parent since 20250420, and has last change on 20250420 concerning cc)
+    │   ├── 56.16.0.0/16 ({'org': 'united states postal service.->amazon.com, inc.'})
+    │   └── 56.17.0.0/16 ({'org': 'united states postal service.->amazon.com, inc.'})
+    ├── 56.18.0.0/16 ({'org': 'united states postal service->amazon.com, inc.'})
+    ├── 56.19.0.0/16 ({'org': 'united states postal service.->amazon.com, inc.'})
+    ├── 56.20.0.0/14 (is parent since 20250420, and has last change on 20250420 concerning cc)
+    │   ├── 56.20.0.0/16 ({'org': 'united states postal service->amazon.com, inc.'})
+    │   ├── 56.21.0.0/16 ({'org': 'united states postal service->amazon.com, inc.'})
+    │   ├── 56.22.0.0/16 ({'org': 'united states postal service->amazon.com, inc.'})
+    │   └── 56.23.0.0/16 ({'org': 'united states postal service->amazon.com, inc.'})
 
 [... truncated ...]
+
+{'asn': 14730, 'org': 'cavalier telephone->windstream communications llc'}
+{'asn': 16810, 'org': 'cavalier telephone->windstream communications llc'}
+
+[... truncated ...]
+
 ```
 
 The output indicates that:
 - 86.33% of the IPv4 space is allocated by IANA, and almost 90% of it is in use
 - 0.2% of the IPv6 space is allocated by IANA, and the entirety is in use
-- on April 18th, a bunch of /16 were transfered from US Postal to Amazon, but `allocated` means that not yet in use
-- the ID `20c786e8edd815cc245070645e265298` in stats files is probably tight to Amazon
-- the parent block `56.0.0.0/15` is probably not owned by Amazon (the requestor is different)
-- the block `56.20.0.0/14` does not have any parent and is owned entirely by Amazon: it's a direct allocation by a RIR, there is no intermediary/reseller in between
+- LEVEL 3 sold a bunch of `/12` to Microsoft
+- a bunch of /16 were transfered from US Postal to Amazon
+- Windstream did some cleaning and renamed the AS they used for "Cavalier Telephone"
 
 # Example 2
 ```
-$ python analyze.py --date 20250618
+$ python analyze.py --date 20250623
 
-[+] Changes seen on 20250618 (2641 found)
+[+] Changes seen on 20250623 (2641 found)
 └── 160.223.180.0/23 ({'status': 'allocated->assigned', 'requestor': 'cc429e8b49be2ee3e7c00f5fd3e11a41->49a468ab-35f7-461f-a4e6-a97eaaa79dd9', 'cc': 'CA->FR', 'org': 'bombardier inc.->alstom transport sa'})
 └── 160.223.202.0/24 ({'status': 'allocated->assigned', 'requestor': 'cc429e8b49be2ee3e7c00f5fd3e11a41->af91326f-50d4-4e50-b00b-528900f858aa', 'cc': 'CA->FR', 'org': 'bombardier inc.->alstom transport sa'})
 
 [ ... truncated ...]
 
+└── 2.92.0.0/14 (is parent since 20250623, and has last change on 20250621 concerning requestor)
+    ├── 2.94.216.0/21 ({'asn': 'n/a->8402'})
+    └── 2.94.224.0/23 (is parent since 20250623, and has last change on 20250617 concerning asn)
+        ├── 2.94.224.0/24 ({'asn': 'n/a->8402'})
+        └── 2.94.225.0/24 ({'asn': 'n/a->3216'})
+
 
 ```
 
-The output indicates that 2 ranges were transfered from Bombardier to Alstom, probably some "cleaning" after they acquired Bombardier years ago.
+The output indicates that 
+- 2 ranges were transfered from Bombardier to Alstom, probably some "cleaning" after they acquired Bombardier years ago.
+- The AS 8402 (Univerisity of North Florida) sold/leased/released a /24 to a third party which is now announced by AS3216 (TEXTRON)
